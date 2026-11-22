@@ -440,8 +440,14 @@ def deps_version(source, name):
 
 
 def fetch_bytes(url, timeout):
-    with urllib.request.urlopen(url, timeout=timeout) as response:
-        return response.read()
+    for attempt in range(5):
+        try:
+            with urllib.request.urlopen(url, timeout=timeout) as response:
+                return response.read()
+        except Exception as error:
+            if attempt == 4:
+                raise
+            time.sleep(5 * (attempt + 1))
 
 
 def cipd_tool_tag():
