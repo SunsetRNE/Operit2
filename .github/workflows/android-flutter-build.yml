@@ -182,6 +182,18 @@ jobs:
           corepack enable
           corepack pnpm --version
 
+      - name: Install Emscripten
+        shell: pwsh
+        run: |
+          git clone --depth 1 https://github.com/emscripten-core/emsdk.git .ci-tools/emsdk
+          cd .ci-tools/emsdk
+          $env:EM_CONFIG = "$PWD/.emscripten"
+          .\emsdk.bat install 4.0.14
+          .\emsdk.bat activate 4.0.14
+          "EMSDK=$PWD" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "EM_CONFIG=$PWD/.emscripten" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "$PWD/upstream/emscripten" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+
       - name: Build and package Android app
         shell: pwsh
         env:
