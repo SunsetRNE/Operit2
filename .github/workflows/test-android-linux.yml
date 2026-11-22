@@ -166,6 +166,12 @@ jobs:
           RELEASE_KEY_PASSWORD=$ANDROID_RELEASE_KEY_PASSWORD
           PROPERTIES
 
+      - name: Restore source-built Android V8
+        uses: actions/cache/restore@v4
+        with:
+          path: tools/release/work/android-v8/152.2.0/aarch64-linux-android
+          key: ${{ runner.os }}-${{ runner.arch }}-android-v8-${{ hashFiles('tools/build_scripts/prepare_android_v8.py', 'apps/flutter/native/operit-flutter-bridge/Cargo.lock') }}
+
       - name: Build and package Android app
         env:
           GRADLE_OPTS: "-Dorg.gradle.internal.repository.max.retries=8 -Dorg.gradle.internal.repository.initial.backoff=1000"
@@ -176,6 +182,14 @@ jobs:
           read -r BUILD_NAME BUILD_NUMBER < <(python3 -c "import re,pathlib; s=pathlib.Path('apps/flutter/app/pubspec.yaml').read_text(); m=re.search(r'^version:\s*(\d+\.\d+\.\d+)\+(\d+)\s*$', s, re.M); print(m.group(1), m.group(2))")
           echo "building $BUILD_NAME+$BUILD_NUMBER"
           python3 tools/build_scripts/build_flutter_android.py --build-name "$BUILD_NAME" --build-number "$BUILD_NUMBER" --enforce-lockfile
+
+      - name: Save source-built Android V8
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: tools/release/work/android-v8/152.2.0/aarch64-linux-android
+          key: ${{ runner.os }}-${{ runner.arch }}-android-v8-${{ hashFiles('tools/build_scripts/prepare_android_v8.py', 'apps/flutter/native/operit-flutter-bridge/Cargo.lock') }}
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
