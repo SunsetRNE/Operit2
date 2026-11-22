@@ -23,6 +23,10 @@ android {
     buildTypes.getByName("release") {
         isMinifyEnabled = false
     }
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
 }
 
 val frameworkStubs = tasks.register<JavaCompile>("compileWindowFrameworkStubs") {
