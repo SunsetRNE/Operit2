@@ -172,6 +172,10 @@ jobs:
         shell: pwsh
         run: npm install --prefix .ci-tools/typescript --no-audit --no-fund typescript@5.9.3
 
+      - name: Prepare Python virtualenv
+        shell: pwsh
+        run: python -m venv .venv
+
       - name: Build and package Android app
         shell: pwsh
         run: |
