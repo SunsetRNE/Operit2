@@ -190,6 +190,10 @@ jobs:
           $env:EM_CONFIG = "$PWD/.emscripten"
           .\emsdk.bat install 4.0.14
           .\emsdk.bat activate 4.0.14
+          if (-not (Test-Path "$PWD/.emscripten")) {
+            if (Test-Path "$HOME/.emscripten") { Copy-Item "$HOME/.emscripten" "$PWD/.emscripten" }
+          }
+          if (-not (Test-Path "$PWD/upstream/emscripten/em++.py")) { throw "Emscripten install incomplete" }
           "EMSDK=$PWD" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
           "EM_CONFIG=$PWD/.emscripten" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
           "$PWD/upstream/emscripten" | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
