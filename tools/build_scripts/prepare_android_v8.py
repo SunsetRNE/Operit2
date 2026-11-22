@@ -23,6 +23,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import time
 import tomllib
 import urllib.request
 import zipfile
@@ -328,10 +329,20 @@ def prepare_icu(source):
         url = ("https://chromium.googlesource.com/chromium/deps/icu/+/"
                f"{revision[1]}/{variant}/icudtl.dat?format=TEXT")
         print(f"Fetching pinned ICU data: {variant} @ {revision[1]}", file=sys.stderr, flush=True)
-        with urllib.request.urlopen(url, timeout=180) as response:
-            data = base64.b64decode(response.read(), validate=True)
-        if not data:
-            raise RuntimeError("Downloaded empty ICU data")
+        data = b""
+        for attempt in range(6):
+            try:
+                with urllib.request.urlopen(url, timeout=180) as response:
+                    data = base64.b64decode(response.read(), validate=True)
+                if not data:
+                    raise RuntimeError("Downloaded empty ICU data")
+                break
+            except Exception as error:
+                if attempt == 5:
+                    raise RuntimeError(f"Failed to download ICU data {variant}: {error}") from error
+                delay = min(30, 2 ** attempt)
+                print(f"ICU download failed ({error}); retrying in {delay}s", file=sys.stderr, flush=True)
+                time.sleep(delay)
         destination.parent.mkdir(parents=True, exist_ok=True)
         temporary = destination.with_suffix(".tmp")
         temporary.write_bytes(data)
