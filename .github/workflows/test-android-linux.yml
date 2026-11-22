@@ -108,7 +108,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y llvm-21-dev libclang-21-dev lld-21 clang-21
           sudo ln -sf /usr/lib/llvm-21/lib/libclang.so /usr/lib/llvm-21/lib/libclang.so.21
-          /usr/lib/llvm-21/bin/ld.lld --version
+          sudo ln -sf /usr/lib/llvm-21/bin/clang /usr/local/bin/clang
+          sudo ln -sf /usr/lib/llvm-21/bin/wasm-ld /usr/local/bin/wasm-ld
+          echo "/usr/lib/llvm-21/bin" >> "$GITHUB_PATH"
+          clang --version | head -1
+          wasm-ld --version
 
       - name: Install FVM
         run: |
