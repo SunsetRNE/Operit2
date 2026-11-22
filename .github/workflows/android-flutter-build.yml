@@ -168,6 +168,10 @@ jobs:
           path: tools/release/work/android-v8
           key: ${{ runner.os }}-${{ runner.arch }}-android-v8-${{ hashFiles('tools/build_scripts/prepare_android_v8.py', 'apps/flutter/native/operit-flutter-bridge/Cargo.lock') }}
 
+      - name: Install TypeScript compiler
+        shell: pwsh
+        run: npm install --prefix .ci-tools/typescript --no-audit --no-fund typescript@5.9.3
+
       - name: Build and package Android app
         shell: pwsh
         run: |
