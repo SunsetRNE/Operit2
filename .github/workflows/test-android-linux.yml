@@ -72,6 +72,7 @@ jobs:
       RUST_TOOLCHAIN_VERSION: 1.95.0
       FVM_VERSION: 4.3.0
       OPERIT_LIBCLANG_DIR: /usr/lib/llvm-21/lib
+      OPERIT_ANDROID_V8_JOBS: "4"
 
     steps:
       - name: Checkout
