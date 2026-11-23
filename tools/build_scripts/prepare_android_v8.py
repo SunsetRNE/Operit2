@@ -61,6 +61,11 @@ GN_OPTIONS = {
     "v8_enable_temporal_support": False,
     "use_custom_libcxx": True,
     "android_static_analysis": "off",
+    # Keep the on-device test build inside a single CI job: ThinLTO makes the
+    # aarch64 release link take far longer than the compile itself.
+    "is_official_build": False,
+    "use_thin_lto": False,
+    "symbol_level": 0,
 }
 # Must stay >= Chromium's min_supported_sdk_version (23, 27 with ASAN) and
 # match the app's minSdkVersion so the library loads on every supported device.
