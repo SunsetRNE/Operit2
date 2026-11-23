@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'Android system terminal'**
   String get terminalImplementationAndroidSystem;
 
+  /// No description provided for @terminalImplementationChroot.
+  ///
+  /// In en, this message translates to:
+  /// **'Chroot (Root)'**
+  String get terminalImplementationChroot;
+
   /// No description provided for @terminalImplementationQemu.
   ///
   /// In en, this message translates to:
@@ -307,6 +313,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Root filesystem directory'**
   String get terminalProfileRootfs;
+
+  /// No description provided for @terminalProfileChrootRootfsHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires Root authorization and the absolute path to a trusted Linux root filesystem containing /bin/bash.'**
+  String get terminalProfileChrootRootfsHelp;
+
+  /// No description provided for @terminalProfileRootfsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the root filesystem path.'**
+  String get terminalProfileRootfsRequired;
+
+  /// No description provided for @terminalProfileMounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Directory mounts'**
+  String get terminalProfileMounts;
+
+  /// No description provided for @terminalProfileAddMount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add mount'**
+  String get terminalProfileAddMount;
+
+  /// No description provided for @terminalProfileMountSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Host directory'**
+  String get terminalProfileMountSource;
+
+  /// No description provided for @terminalProfileMountTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest directory'**
+  String get terminalProfileMountTarget;
+
+  /// No description provided for @terminalProfileMountPathRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a directory path.'**
+  String get terminalProfileMountPathRequired;
 
   /// No description provided for @terminalProfileRootfsHelp.
   ///
@@ -2327,13 +2375,13 @@ abstract class AppLocalizations {
   /// No description provided for @settingsCategoryGlobalBehaviorSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Input processing and interaction'**
+  /// **'Chat layout, input processing and interaction'**
   String get settingsCategoryGlobalBehaviorSubtitle;
 
   /// No description provided for @settingsCategoryGlobalBehaviorDescription.
   ///
   /// In en, this message translates to:
-  /// **'Configure application-wide input and interaction behavior.'**
+  /// **'Configure application-wide chat layout, input and interaction behavior.'**
   String get settingsCategoryGlobalBehaviorDescription;
 
   /// No description provided for @settingsCategoryAppearanceTitle.
@@ -2431,6 +2479,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Chat input'**
   String get settingsGlobalBehaviorChatInputSection;
+
+  /// No description provided for @settingsGlobalBehaviorChatLayoutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat layout'**
+  String get settingsGlobalBehaviorChatLayoutSection;
+
+  /// No description provided for @settingsGlobalBehaviorChatScrollNavigatorOnLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Show message navigator on the left'**
+  String get settingsGlobalBehaviorChatScrollNavigatorOnLeft;
+
+  /// No description provided for @settingsGlobalBehaviorChatScrollNavigatorOnLeftDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Mirror the navigator on the left side of the chat. It appears on the right by default.'**
+  String get settingsGlobalBehaviorChatScrollNavigatorOnLeftDescription;
 
   /// No description provided for @settingsGlobalBehaviorEnterSendsMessage.
   ///
@@ -4950,6 +5016,36 @@ abstract class AppLocalizations {
   /// **'Switch identity'**
   String get runtimeIdentitySwitchConfirm;
 
+  /// No description provided for @runtimeIdentityActivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch'**
+  String get runtimeIdentityActivate;
+
+  /// No description provided for @runtimeIdentityActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity actions'**
+  String get runtimeIdentityActions;
+
+  /// No description provided for @runtimeIdentityDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete identity'**
+  String get runtimeIdentityDelete;
+
+  /// No description provided for @runtimeIdentityDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {identityName}?'**
+  String runtimeIdentityDeleteTitle(String identityName);
+
+  /// No description provided for @runtimeIdentityDeleteDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This identity will be removed from the switcher on this device. Its local files will be kept.'**
+  String get runtimeIdentityDeleteDescription;
+
   /// No description provided for @runtimeIdentityCurrent.
   ///
   /// In en, this message translates to:
@@ -4959,7 +5055,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsUserProfileTitle.
   ///
   /// In en, this message translates to:
-  /// **'User profile'**
+  /// **'Identity management'**
   String get settingsUserProfileTitle;
 
   /// No description provided for @settingsUserProfileSubtitle.
@@ -5043,7 +5139,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsUserProfileIdentities.
   ///
   /// In en, this message translates to:
-  /// **'Identities'**
+  /// **'Local identities'**
   String get settingsUserProfileIdentities;
 
   /// No description provided for @settingsUserProfileGitHub.
@@ -9774,23 +9870,41 @@ abstract class AppLocalizations {
   /// **'Download Linux distributions'**
   String get terminalDistributionsTitle;
 
-  /// No description provided for @terminalDistributionsDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Only Alpine is bundled. Download an ARM64 root filesystem to add a separate instance, then choose it as the default. You can install the same distribution multiple times.'**
-  String get terminalDistributionsDescription;
-
   /// No description provided for @terminalDistributionDownload.
   ///
   /// In en, this message translates to:
   /// **'Download and install'**
   String get terminalDistributionDownload;
 
+  /// No description provided for @terminalDistributionInstallAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Install another'**
+  String get terminalDistributionInstallAnother;
+
   /// No description provided for @terminalInstallQueued.
   ///
   /// In en, this message translates to:
   /// **'Waiting to install'**
   String get terminalInstallQueued;
+
+  /// No description provided for @terminalInstallConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Testing download mirrors…'**
+  String get terminalInstallConnecting;
+
+  /// No description provided for @terminalInstallCancelling.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelling…'**
+  String get terminalInstallCancelling;
+
+  /// No description provided for @terminalInstallErrorDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Error details'**
+  String get terminalInstallErrorDetails;
 
   /// No description provided for @terminalInstallDownloading.
   ///
@@ -9831,13 +9945,19 @@ abstract class AppLocalizations {
   /// No description provided for @terminalProfileWslDistribution.
   ///
   /// In en, this message translates to:
-  /// **'WSL distribution (optional)'**
+  /// **'WSL distribution'**
   String get terminalProfileWslDistribution;
+
+  /// No description provided for @terminalProfileWslDistributionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a WSL distribution.'**
+  String get terminalProfileWslDistributionRequired;
 
   /// No description provided for @terminalProfileWslHelp.
   ///
   /// In en, this message translates to:
-  /// **'For WSL, select Bash, enter the absolute path to wsl.exe and a distribution name from wsl --list --quiet, such as Ubuntu-24.04. Leave this field blank for a native Bash executable.'**
+  /// **'Install a WSL distribution on the Windows device running Core, then reopen this dialog.'**
   String get terminalProfileWslHelp;
 }
 
